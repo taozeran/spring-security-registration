@@ -54,13 +54,13 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         super();
     }
 
-    
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-    
+
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authProvider());
@@ -71,13 +71,15 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/resources/**");
     }
 
+
+
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         // @formatter:off
         http
             .csrf().disable()
             .authorizeRequests()
-                .antMatchers("/login*","/login*", "/logout*", "/signin/**", "/signup/**", "/customLogin",
+                .antMatchers("/login*", "/logout*", "/signin/**", "/signup/**", "/customLogin",
                         "/user/registration*", "/registrationConfirm*", "/expiredAccount*", "/registration*",
                         "/badUser*", "/user/resendRegistrationToken*" ,"/forgetPassword*", "/user/resetPassword*",
                         "/user/changePassword*", "/emailError*", "/resources/**","/old/user/registration*","/successRegister*","/qrcode*").permitAll()

@@ -6,6 +6,7 @@ import org.baeldung.persistence.model.User;
 import org.baeldung.registration.OnRegistrationCompleteEvent;
 import org.baeldung.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
@@ -18,6 +19,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     @Autowired
     private IUserService service;
 
+    @Qualifier("messageSource")
     @Autowired
     private MessageSource messages;
 

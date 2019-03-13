@@ -8,7 +8,8 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.web.context.request.RequestContextListener;
 
 @Configuration
-public class TestIntegrationConfig {
+public class
+TestIntegrationConfig {
 
     @Bean
     @ConditionalOnMissingBean(RequestContextListener.class)

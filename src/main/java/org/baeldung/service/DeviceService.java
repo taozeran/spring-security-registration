@@ -9,11 +9,13 @@ import org.baeldung.persistence.model.DeviceMetadata;
 import org.baeldung.persistence.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ua_parser.Client;
 import ua_parser.Parser;
 
@@ -43,7 +45,7 @@ public class DeviceService {
                          DatabaseReader databaseReader,
                          Parser parser,
                          JavaMailSender mailSender,
-                         MessageSource messages) {
+                         @Qualifier("messageSource") MessageSource messages) {
         this.deviceMetadataRepository = deviceMetadataRepository;
         this.databaseReader = databaseReader;
         this.parser = parser;
@@ -51,6 +53,7 @@ public class DeviceService {
         this.messages = messages;
     }
 
+    @Transactional
     public void verifyDevice(User user, HttpServletRequest request) throws IOException, GeoIp2Exception {
 
         String ip = extractIp(request);
@@ -105,6 +108,10 @@ public class DeviceService {
     }
 
     private String getIpLocation(String ip) throws IOException, GeoIp2Exception {
+
+        if (ip.equals("0:0:0:0:0:0:0:1")) {
+            return "localhost";
+        }
 
         String location = UNKNOWN;
 

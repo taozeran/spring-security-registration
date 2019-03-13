@@ -23,6 +23,7 @@ import org.baeldung.web.util.GenericResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
@@ -52,6 +53,7 @@ public class RegistrationController {
     @Autowired
     private ISecurityUserService securityUserService;
 
+    @Qualifier("messageSource")
     @Autowired
     private MessageSource messages;
 
